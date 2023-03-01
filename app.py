@@ -4,13 +4,14 @@ from typing import List
 from fastapi import FastAPI
 from loguru import logger
 
-from ai_web_app.main import Result, index_embeddings, search
+from ai_web_app.main import Result, get_embeddings, search
 
 app = FastAPI()
 
 logger.info("Indexing database...")
 database_path = Path("./articles.sqlite")
-embeddings = index_embeddings(database_path)
+embeddings = get_embeddings()
+embeddings.load("./saved_index")
 
 
 @app.get("/search")

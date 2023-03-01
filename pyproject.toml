@@ -61,6 +61,7 @@ types = "mypy ."
 serve = "uvicorn app:app --port 8080"
 build = "docker buildx build . -t ai-web-app:latest"
 serve-docker = ["docker run -p 5000:8080 ai-web-app:latest"]
+build-embeddings = ["python ai_web_app/main.py"]
 
 [[tool.hatch.envs.test.matrix]]
 python = ["37", "38", "39", "310", "311"]

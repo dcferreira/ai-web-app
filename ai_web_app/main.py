@@ -10,6 +10,17 @@ from txtai.embeddings import Embeddings
 from txtai.pipeline import Tokenizer
 
 
+def get_embeddings() -> Embeddings:
+    # BM25 + fastText vectors
+    return Embeddings(
+        {
+            "method": "sentence-transformers",
+            "path": "all-MiniLM-L6-v2",
+            "scoring": "bm25",
+        }
+    )
+
+
 def index_embeddings(database: Path) -> Embeddings:
     def stream():
         # Connection to database file
@@ -52,15 +63,7 @@ def index_embeddings(database: Path) -> Embeddings:
         # Free database resources
         db.close()
 
-    # BM25 + fastText vectors
-    embeddings = Embeddings(
-        {
-            "method": "sentence-transformers",
-            "path": "all-MiniLM-L6-v2",
-            "scoring": "bm25",
-        }
-    )
-
+    embeddings = get_embeddings()
     embeddings.index(stream())
 
     return embeddings
@@ -104,3 +107,8 @@ def search(
 
     db.close()
     return results
+
+
+if __name__ == "__main__":
+    emb = index_embeddings(Path("./articles.sqlite"))
+    emb.save("./saved_index")
