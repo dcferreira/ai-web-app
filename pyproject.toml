@@ -26,6 +26,8 @@ classifiers = [
 dependencies = [
   "txtai[similarity]==5.3.0",
   "loguru==0.6.0",
+  "fastapi==0.92.0",
+  "uvicorn[standard]==0.20.0",
 ]
 dynamic = ["version"]
 
@@ -47,13 +49,16 @@ dependencies = [
   "mypy",
   "pre-commit",
   "pandas",
+  "pytest-xprocess",
 ]
 [tool.hatch.envs.default.scripts]
 cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=ai_web_app --cov=tests {args}"
 no-cov = "cov --no-cov {args}"
+integration = "no-cov -m integration -x"
 lint = ["ruff .", "black . --check -q", "isort . --check -q"]
 format = ["black .", "isort ."]
 types = "mypy ."
+serve = "uvicorn app:app --port 8080"
 
 [[tool.hatch.envs.test.matrix]]
 python = ["37", "38", "39", "310", "311"]
@@ -74,3 +79,9 @@ exclude_lines = [
 
 [tool.isort]
 profile = "black"
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers -m \"not integration\""
+markers = [
+    "integration: slow tests, shouldn't be run so often"
+]
