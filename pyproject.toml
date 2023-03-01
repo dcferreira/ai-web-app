@@ -24,7 +24,8 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "txtai==5.3.0",
+  "txtai[similarity]==5.3.0",
+  "loguru==0.6.0",
 ]
 dynamic = ["version"]
 
