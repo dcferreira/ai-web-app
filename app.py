@@ -1,17 +1,21 @@
+import os.path
 from pathlib import Path
 from typing import List
 
 from fastapi import FastAPI
 from loguru import logger
 
-from ai_web_app.main import Result, get_embeddings, search
+from ai_web_app.main import Result, get_embeddings, index_embeddings, search
 
 app = FastAPI()
 
-logger.info("Indexing database...")
 database_path = Path("./articles.sqlite")
-embeddings = get_embeddings()
-embeddings.load("./saved_index")
+if os.path.exists("./saved_index"):
+    embeddings = get_embeddings()
+    embeddings.load("./saved_index")
+else:
+    logger.info("Indexing database...")
+    embeddings = index_embeddings(database_path)
 
 
 @app.get("/search")
