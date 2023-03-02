@@ -8,6 +8,7 @@ class TestPythonServer:
     def server(self, xprocess):
         class Starter(ProcessStarter):
             timeout = 600
+            max_read_lines = 200
             pattern = "Application startup complete"
             args = ["hatch", "run", "serve"]
 
