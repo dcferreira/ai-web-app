@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>AI Web App</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <script type="text/javascript">
+        function processResult(result) {
+            return `<td>${result.score}</td><td>${result.text}</td><td>${result.title}</td>`
+        }
+
+        function search() {
+            const query = document.getElementById('formQuery');
+            if (query) {
+                const uri = encodeURI(`http://127.0.0.1:8080/search?query=${query}`)
+                fetch(uri)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        document.getElementById("results").innerHTML = "<tr><th>Score</th><th>Text</th><th>Title</th></tr><tr>" +
+                            data.map(processResult).join("</tr><tr>") + "</tr>";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        }
+    </script>
+</head>
+
+<body>
+<h1>Search</h1>
+<div>
+    Search query:
+    <label for="formQuery"></label><input id="formQuery" type="text"><br>
+    <input type="button" value="Search!" onclick="search()">
+</div>
+
+<div>
+    <table id="results">
+        <tr>
+            <th>Score</th>
+            <th>Text</th>
+            <th>Title</th>
+        </tr>
+    </table>
+</div>
+</body>
