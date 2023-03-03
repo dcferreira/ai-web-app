@@ -32,6 +32,9 @@ jobs:
         run: hatch run cov
 
   integration:
+    env:
+      CORS_ORIGIN: NOT_NEEDED
+
     runs-on: ubuntu-latest
     # only run on pull requests and main branch
     if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' }}

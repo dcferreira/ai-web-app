@@ -51,6 +51,10 @@ dependencies = [
   "pandas",
   "pytest-xprocess",
 ]
+
+[tool.hatch.envs.default.env-vars]
+CORS_ORIGIN = "NOT_NEEDED"
+
 [tool.hatch.envs.default.scripts]
 cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=ai_web_app --cov=tests {args}"
 no-cov = "cov --no-cov {args}"
