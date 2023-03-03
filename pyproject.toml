@@ -62,6 +62,10 @@ serve = "uvicorn app:app --port 8080"
 build = "docker buildx build . -t ai-web-app:latest"
 serve-docker = ["docker run -p 5000:8080 ai-web-app:latest"]
 build-embeddings = ["python ai_web_app/main.py"]
+push = [
+    "docker tag ai-web-app:latest us-central1-docker.pkg.dev/my-example-webapp-23867/ai-web-app-artifacts/ai-web-app:latest",
+    "docker push us-central1-docker.pkg.dev/my-example-webapp-23867/ai-web-app-artifacts/ai-web-app:latest"
+]
 
 [[tool.hatch.envs.test.matrix]]
 python = ["37", "38", "39", "310", "311"]
