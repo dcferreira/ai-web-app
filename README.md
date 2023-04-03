@@ -1,20 +1,6 @@
 # AI web app
 
-[![PyPI - Version](https://img.shields.io/pypi/v/ai-web-app.svg)](https://pypi.org/project/ai-web-app)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ai-web-app.svg)](https://pypi.org/project/ai-web-app)
-
------
-
-**Table of Contents**
-
-- [Installation](#installation)
-- [License](#license)
-
-## Installation
-
-```console
-pip install ai-web-app
-```
+This is the companion code for my blogpost [Making and Deploying an AI Web App in 2023](https://dcferreira.com/post/2023-03-01-ai-web-app/).
 
 ## License
 
